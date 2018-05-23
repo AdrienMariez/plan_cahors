@@ -7,53 +7,26 @@
 //needed : id of subcategories in this format : id="categoryid/subcatid"
 
 import React, { Component } from 'react';
-import Composant from './Composant.js'
+import PlaceDisplay from './place_display.js';
 
-class Categories extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            request: false,
 
-        }
-    }
 
-    subcategory_click(x) {
-// needed form reloading
-        this.setState({ request: false })
-        
-        if (this.state[x]) {
-            this.setState({ [x]: false });
-        }
-        else {
-            this.setState({ [x]: true });
-        }
-        
-        this.setState({ request: true })
-    }
+// /!\
+//  needs new method to set all states of subcategories at false when the json is processed
+// /!\
+const Categories = ({ handleClick }) => {
 
-    // /!\
-    //  needs new method to set all states of subcategories at false when the json is processed
-    // /!\
+    return (
+        <div> 
+            {/* <button id="123" onClick={() => handleClick("123")}>subcat1</button> */}
 
-    render() {
-        return (
-            <div>
-                <ul>
-                    {console.log("categorie", this.state)}
-
-                    <li><button id="123" onClick={() => this.subcategory_click("123")}>subcat1</button></li>
-                    <li><button id="456" onClick={() => this.subcategory_click("456")}>subcat2</button></li>
-                    <li><button id="789" onClick={() => this.subcategory_click("789")}>subcat3</button></li>
-                </ul>
-
-                {this.state.request === true &&
-
-                    <Composant x={this.state} />
-                }
-            </div>
-        );
-    }
+            <ul>
+                <li><button id="123" onClick={() => handleClick("123")}>subcat1</button></li>
+                <li><button id="456" onClick={() => handleClick("456")}>subcat2</button></li>
+                <li><button id="789" onClick={() => handleClick("789")}>subcat3</button></li>
+            </ul>
+        </div>
+    );
 }
 
 export default Categories;

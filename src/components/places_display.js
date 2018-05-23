@@ -6,16 +6,17 @@
 
 //RETURNS leaflet elements
 
-import React, { Component } from 'react';
+// import React, { Component } from 'react';
 
-class Places_display extends Component {
-  render() {
-    return (
-        <div>
-            {console.log("bateau")}
-        </div>
-    );
-  }
-}
+// class PlacesDisplay extends Component {
+//   render() {
+//     return (
+//         <div>
+//             {console.log("bateau")}
+//             Places_display.js
+//         </div>
+//     );
+//   }
+// }
 
-export default Places_display;
+// export default PlacesDisplay;
