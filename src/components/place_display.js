@@ -8,6 +8,7 @@
 
 import React, { Component } from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import places from '../places.json'
 
 const mapPos = [44.45326626477771, 1.4361190795898438];
 
@@ -16,94 +17,100 @@ class PlaceDisplay extends Component {
         super(props);
         this.state = {
             marker_html: '',
-            marker_position: '',
+            marker_position: [],
+
         }
     }
 
 
     componentWillMount() {
+        this.setState({ marker_position: [] })
+
         var props = ' ';
 
         if (this.props.x) {
-            console.log("componentWillMount", this.props.x)
 
-            for (const key in this.props.x) {
-                props += this.props.x[key];
+            var answers = delete this.props.x['request']
 
-            }
-            this.setState({ marker_html: props })
+
         }
         else this.setState({ marker_html: '' })
     }
 
     componentWillReceiveProps(newProps) {
-        var temp = ' ';
-        var tempPosition = [ ];
 
-        console.log("componentWillReceiveProps", newProps.x)
+        this.setState({ })
+
+        delete newProps.x['request']
+        var answers = newProps.x
+
+        // find places to display
+        for (const state in answers) {
+            if (answers[state]) {
 
 
-        for (const key in this.props.x) {
-            temp += newProps.x[key];
-            console.log("temp : ", key)
+                var ids = state.split('/')
+                for (let i = 0; i < places.length; i++) {
+                    var parent = places[i];
+                    if (parent.id === ids[0]) {
 
-            if (key === "123" && newProps.x[key]) {
-                tempPosition.push([44.45326626477771, 1.4161190795898438]);
-            }
-            if (key === "456" && newProps.x[key]) {
-                tempPosition.push([44.50326626477771, 1.4361190795898438]);
-            }
-            if (key === "789" && newProps.x[key]) {
-                tempPosition.push([44.40326626477771, 1.4361190795898438]);
+
+                        for (let j = 0; j < parent.children.length; j++) {
+
+                            var children = parent.children[j];
+                            if (children.id == ids[1]) {
+                                this.processPlaces(children.places)
+
+                            };
+
+                        }
+                    };
+
+                }
+
             }
 
         }
-        this.setState({ marker_html: temp })
-        this.setState({ marker_position: tempPosition })
+
     }
+
+
     // /!\
     //  needs new method to set all states of subcategories at false when the json is processed
     // /!\
 
-    getPlaces(x) {
-        if (x === "123") {
-            return [44.45326626477771, 1.4161190795898438];
-        }
-        if (x === "456") {
-            return [44.50326626477771, 1.4361190795898438];
-        }
-        if (x === "789") {
-            return [44.40326626477771, 1.4361190795898438];
-        }
+    processPlaces(x) {
+    
+        var tempPosition = this.props.emptyArray;
+        x.forEach(element => {
+            tempPosition.push([element.lat, element.lon]);
+
+        });
+
+        this.setState({ marker_position: tempPosition })
+
     }
 
     render() {
-        // if (document.getElementById('marker')){
-        //     document.getElementById('marker').innerHTML = this.state.marker_html
-        //     // var log = ''
-
-        //     // document.getElementById('marker').innerHTML = log
-        // }
-
 
         return (
-            <div className='xerox'>
+            <div className='markers'>
                 <div>
+
                     {(() => {
-                        var tempol = [];
-                        
+                        var temp = [];
                         for (let i of this.state.marker_position) {
-                        
-                            tempol.push(<Marker position={i}>
-                            <Popup>
-                                <span>
-                                    A pretty CSS3 popup. <br /> Easily customizable.
+
+                            temp.push(<Marker position={i}>
+                                <Popup>
+                                    <span>
+                                        A pretty CSS3 popup. <br /> Easily customizable.
                                 </span>
-                            </Popup>
-                        </Marker>);
+                                </Popup>
+                            </Marker>);
                         }
-                        
-                        return tempol;
+
+                        return temp;
                     })()}
                 </div>
                 {/* <Marker position={mapPos}>

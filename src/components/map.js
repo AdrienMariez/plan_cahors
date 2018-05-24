@@ -25,7 +25,7 @@ class MapCahors extends Component {
                             url={stamenTonerTiles}
                         />
                          {this.props.x &&
-                            <PlaceDisplay x={this.props.x} /> 
+                            <PlaceDisplay x={this.props.x} emptyArray = {[]} /> 
                         }
                         {/* <Marker position={mapCenter}>
                             <Popup>
