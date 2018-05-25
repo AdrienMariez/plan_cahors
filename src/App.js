@@ -10,12 +10,12 @@ class App extends Component {
     super(props);
     this.state = {
       request: false,
-      // categories: '',
-      // cat: ''
     }
   }
 
   subcategoryClick(e, x) {
+
+
     // needed form reloading
 
     this.setState({ request: false })
@@ -23,25 +23,26 @@ class App extends Component {
     if (this.state[x.id]) {
       this.setState({ [x.id]: false });
       e.target.style.color = 'black';
-      
+      // console.log("black");
     }
     else {
       this.setState({ [x.id]: true });
-      console.log('effetgraph')
       e.target.style.color = 'red';
+      // console.log("red");
     }
 
     this.setState({ request: true })
+
   }
 
   createElement(id, name) {
-    return <div onClick={(e) => this.subcategoryClick(e, { id })}>{name}</div>
+    return <div key={id} onClick={(e) => this.subcategoryClick(e, { id })}>{name}</div>
   }
 
   createMenu() {
     var htmlList = [];
     for (let i = 0; i < places.length; i++) {
-      htmlList.push(<h3>{places[i].name}</h3>);
+      htmlList.push(<h3 key={places[i].id}>{places[i].name}</h3>);
       for (let y = 0; y < places[i].children.length; y++) {
         var id = places[i].id + '/' + places[i].children[y].id;
         htmlList.push(this.createElement(id, places[i].children[y].name));
@@ -69,6 +70,7 @@ class App extends Component {
             }
             {this.state.request !== true &&
               <Map_cahors />
+
             }
 
           </div>

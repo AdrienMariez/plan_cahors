@@ -13,7 +13,10 @@ class MapCahors extends Component {
     }
 
     render() {
+        // console.log(this.props.x,"this.props.x");
+        
         return (
+
             <div>
                 <div>
                     <Map
@@ -27,13 +30,7 @@ class MapCahors extends Component {
                          {this.props.x &&
                             <PlaceDisplay x={this.props.x} emptyArray = {[]} /> 
                         }
-                        {/* <Marker position={mapCenter}>
-                            <Popup>
-                                <span>
-                                    A pretty CSS3 popup. <br /> Easily customizable.
-                                </span>
-                            </Popup>
-                        </Marker> */}
+                        
                     </Map>
                 </div>
                 <div id='marker'>
