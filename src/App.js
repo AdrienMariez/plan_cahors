@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import logo from './logo.svg';
+// import ReactDOM from 'react-dom';
+// import logo from './logo.svg';
 import './App.css';
-import Map_cahors from './components/map.js';
+import MapCahors from './components/map.js';
 import places from './places.json'
 
 class App extends Component {
@@ -66,10 +66,10 @@ class App extends Component {
           <div id="map">
 
             {this.state.request === true &&
-              <Map_cahors x={this.state} />
+              <MapCahors x={this.state} />
             }
             {this.state.request !== true &&
-              <Map_cahors />
+              <MapCahors />
 
             }
 

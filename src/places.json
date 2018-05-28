@@ -182,7 +182,7 @@
       {
         "id": "5b04010b9ca6f33b11ecf031",
         "name": "Déchéterie",
-        "icon": "decheterie",
+        "icon": "decheterie.svg",
         "places": [
           {
             "id": "5b04010bf77127d21dba42a6",
